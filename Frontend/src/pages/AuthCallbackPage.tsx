@@ -18,7 +18,7 @@ const AuthCallbackPage = () => {
     navigate("/");
   }, [createUser, navigate, user]);
 
-  return <>Loading...</>;
+  return <>Pending...</>;
 };
 
 export default AuthCallbackPage;

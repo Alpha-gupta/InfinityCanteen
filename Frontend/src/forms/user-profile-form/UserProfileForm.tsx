@@ -19,9 +19,9 @@ import { useEffect } from "react";
 const formSchema = z.object({
   email: z.string().optional(),
   name: z.string().min(1, "Name is required"),
-  addressLine1: z.string().min(1, "Address Line 1 is required"),
-  city: z.string().min(1, "City is required"),
-  country: z.string().min(1, "Country is required"),
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  roomNumber: z.string().min(1, "Room No. is required"),
+  HostelName: z.string().min(1, "HostelName is required"),
 });
 
 export type UserFormData = z.infer<typeof formSchema>;
@@ -93,10 +93,10 @@ const UserProfileForm = ({
         <div className="flex flex-col md:flex-row gap-4">
           <FormField
             control={form.control}
-            name="addressLine1"
+            name="phoneNumber"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Address Line 1</FormLabel>
+                <FormLabel>Phone Number</FormLabel>
                 <FormControl>
                   <Input {...field} className="bg-white" />
                 </FormControl>
@@ -106,10 +106,10 @@ const UserProfileForm = ({
           />
           <FormField
             control={form.control}
-            name="city"
+            name="roomNumber"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>City</FormLabel>
+                <FormLabel>Room No.</FormLabel>
                 <FormControl>
                   <Input {...field} className="bg-white" />
                 </FormControl>
@@ -119,10 +119,10 @@ const UserProfileForm = ({
           />
           <FormField
             control={form.control}
-            name="country"
+            name="HostelName"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Country</FormLabel>
+                <FormLabel>Hostel Name</FormLabel>
                 <FormControl>
                   <Input {...field} className="bg-white" />
                 </FormControl>

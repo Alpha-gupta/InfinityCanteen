@@ -5,9 +5,9 @@ export interface IUser extends Document {
   auth0Id: string;
   email: string;
   name?: string;
-  addressLine1?: string;
-  city?: string;
-  country?: string;
+  phoneNumber?: string;// addressLine1?: string;
+  roomNumber?: string;                 //city?: string;
+  HostelName?: string; // country?: string;
 }
 
 const userSchema = new Schema<IUser>({
@@ -25,9 +25,9 @@ const userSchema = new Schema<IUser>({
     required: true,
   },
   name: String,
-  addressLine1: String,
-  city: String,
-  country: String,
+  phoneNumber: String,
+  roomNumber: String,
+  HostelName: String,
 });
 
 const User = mongoose.model<IUser>("User", userSchema);

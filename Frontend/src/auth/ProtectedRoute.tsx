@@ -1,11 +1,11 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useMyAuth } from "@/auth/useMyAuth"; // your custom hook
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = () => {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated, isPending } = useMyAuth();
 
-  if (isLoading) {
-    return null;
+  if (isPending) {
+    return null; // or a loading spinner
   }
 
   if (isAuthenticated) {
