@@ -5,4 +5,5 @@ export type User = {
  phoneNumber: string; // addressLine1: string;
  roomNumber:string ; // city: string;
  HostelName:string; //country: string;
+ College:string;
 };

@@ -38,18 +38,20 @@ const createCurrentUser = async (req: Request, res: Response) => {
 
 const updateCurrentUser = async (req: Request, res: Response) => {
   try {
-    const { name, phoneNumber, HostelName, roomNumber } = req.body;
+    const { name, phoneNumber, HostelName, roomNumber, College } = req.body;
     const user = await User.findById(req.userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
+    if (!name || !phoneNumber || !HostelName || !roomNumber || !College) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
     user.name = name;
     user.phoneNumber = phoneNumber;
     user.roomNumber = roomNumber;
     user.HostelName = HostelName;
-
+    user.College = College;
     await user.save();
 
     res.send(user);

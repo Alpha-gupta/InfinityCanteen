@@ -8,6 +8,7 @@ export interface IUser extends Document {
   phoneNumber?: string;// addressLine1?: string;
   roomNumber?: string;                 //city?: string;
   HostelName?: string; // country?: string;
+  College?: string;
 }
 
 const userSchema = new Schema<IUser>({
@@ -28,6 +29,7 @@ const userSchema = new Schema<IUser>({
   phoneNumber: String,
   roomNumber: String,
   HostelName: String,
+  College: String,
 });
 
 const User = mongoose.model<IUser>("User", userSchema);

@@ -88,6 +88,7 @@ type UpdateMyUserRequest = {
   phoneNumber: string;
   roomNumber: string;
   HostelName: string;
+  College: string;
 };
 
 export const useUpdateMyUser = () => {
