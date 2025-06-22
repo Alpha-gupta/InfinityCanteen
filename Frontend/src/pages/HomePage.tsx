@@ -22,7 +22,11 @@ Treat yourself to a tasty takeaway tonight.
 
  </span>
 
- <SearchBar  placeHolder='Search by your College City'  onSubmit={handleSearchSubmit}/>
+ <SearchBar
+    placeHolder='Search by your College City'
+    onSubmit={handleSearchSubmit}
+    searchQuery=""
+ />
         </div>
         <div className="grid md:grid-cols-2 gap-5">
             <img  src={landingImage} />

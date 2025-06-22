@@ -2,6 +2,7 @@
 // import { Restaurant, RestaurantSearchResponse } from "@/types";
 // import { useQuery } from "react-query";
 
+import type { SearchState } from "@/pages/SearchPage";
 import type { RestaurantSearchResponse } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
@@ -32,18 +33,18 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // };
 
 export const useSearchRestaurants = (
-  // searchState: SearchState,
+   searchState: SearchState,
   Collegecity?: string
 ) => {
   const createSearchRequest = async (): Promise<RestaurantSearchResponse> => {
-    // const params = new URLSearchParams();
-    // params.set("searchQuery", searchState.searchQuery);
-    // params.set("page", searchState.page.toString());
-    // params.set("selecteddishes", searchState.selecteddishes.join(","));
+     const params = new URLSearchParams();
+     params.set("searchQuery", searchState.searchQuery);
+     params.set("page", searchState.page.toString());
+     //params.set("selecteddishes", searchState.selecteddishes.join(","));
     // params.set("sortOption", searchState.sortOption);
 
     const response = await fetch(
-      `${API_BASE_URL}/api/restaurant/search/${Collegecity}`
+      `${API_BASE_URL}/api/restaurant/search/${Collegecity}?${params.toString()}`
     );
 
     if (!response.ok) {
@@ -54,7 +55,7 @@ export const useSearchRestaurants = (
   };
 
   const { data: results, isPending } = useQuery({
-    queryKey: ["searchRestaurants"],
+    queryKey: ["searchRestaurants", searchState],
     queryFn: createSearchRequest,
     enabled: !!Collegecity,
   });
