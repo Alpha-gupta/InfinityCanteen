@@ -7,3 +7,29 @@ export type User = {
  HostelName:string; //country: string;
  College:string;
 };
+
+export type MenuItem = {
+  _id: string;
+  name: string;
+  price: number;
+};
+export type Restaurant = {
+  _id: string;
+  restaurantName: string;
+  Collegecity: string;
+  deliveryPrice: number;
+  estimatedDeliveryTime: number;
+  dishes: string[];
+  menuItems:MenuItem[];
+  imageUrl: string;
+  lastUpdated: string;
+};
+
+export type RestaurantSearchResponse = {
+  data: Restaurant[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
+};

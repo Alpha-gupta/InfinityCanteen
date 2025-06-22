@@ -9,6 +9,9 @@ import MenuSection from "./MenuSection";
 import ImageSection from "./ImageSection";
 import PendingButton from "@/components/PendingButton";
 import { Button } from "@/components/ui/button";
+import type { Restaurant } from "@/types";
+import { useEffect } from "react";
+
 
 const formSchema = z
   .object({
@@ -45,12 +48,12 @@ const formSchema = z
  type RestaurantFormData = z.infer<typeof formSchema>;
 
 type Props = {
-//   restaurant?: Restaurant;
+   restaurant?: Restaurant;
   onSave: (restaurantFormData: FormData) => void;
   isPending: boolean;
 };
 
-const ManageRestaurantForm = ({ onSave, isPending}: Props) => {
+const ManageRestaurantForm = ({ onSave, isPending, restaurant}: Props) => {
   const form = useForm<RestaurantFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,7 +61,57 @@ const ManageRestaurantForm = ({ onSave, isPending}: Props) => {
       menuItems: [{ name: "", price: 0 }],
     },
   });
-const onSubmit = (formDataJson: restaurantFormData) => {
+
+ useEffect(() => {
+    if (!restaurant) {
+      return;
+    }
+
+    // price lowest domination of 100 = 100pence == 1GBP
+    const deliveryPriceFormatted = parseInt(
+      (restaurant.deliveryPrice / 100).toFixed(2)
+    );
+
+    const menuItemsFormatted = restaurant.menuItems.map((item) => ({
+      ...item,
+      price: parseInt((item.price / 100).toFixed(2)),
+    }));
+
+    const updatedRestaurant = {
+      ...restaurant,
+      deliveryPrice: deliveryPriceFormatted,
+      menuItems: menuItemsFormatted,
+    };
+
+    form.reset(updatedRestaurant);
+  }, [form, restaurant]);
+
+
+
+ 
+const onSubmit = (formDataJson: RestaurantFormData) => {
+
+  const formData = new FormData();
+  formData.append("restaurantName", formDataJson.restaurantName);
+  formData.append("Collegecity", formDataJson.Collegecity);
+
+  formData.append("deliveryPrice",formDataJson.deliveryPrice .toString());
+  formData.append("estimatedDeliveryTime", formDataJson.estimatedDeliveryTime.toString());
+
+  formDataJson.dishes.forEach((dish, index) => {
+    formData.append(`dishes[${index}]`, dish);
+  });
+
+    formDataJson.menuItems.forEach((menuitem, index) => {
+    formData.append(`menuItems[${index}][name]`, menuitem.name);
+        formData.append(`menuItems[${index}][price]`, menuitem.price.toString());
+
+  });
+
+  if (formDataJson.imageFile) {
+    formData.append("imageFile", formDataJson.imageFile);
+  }
+  onSave(formData);
 }
 
   return (

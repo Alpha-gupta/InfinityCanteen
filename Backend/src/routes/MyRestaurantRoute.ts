@@ -16,12 +16,12 @@ const upload = multer({
   },
 });
 
-// router.get(
-//   "/order",
-//   jwtCheck,
-//   jwtParse,
-//   MyRestaurantController.getMyRestaurantOrders
-// );
+router.get(
+  "/",
+  jwtCheck,
+  jwtParse,
+  MyRestaurantController.getMyRestaurant
+);
 
 // router.patch(
 //   "/order/:orderId/status",
@@ -34,19 +34,21 @@ const upload = multer({
 
 router.post(
   "/",
-    upload.single("imageFile"), 
-  validateMyRestaurantRequest,
-  jwtCheck,       // Authentication first
-  jwtParse,       // Then parse JWT
+  upload.single("imageFile"),
+  jwtCheck,                   // ✅ Auth first
+  jwtParse,                   // ✅ JWT next
+  validateMyRestaurantRequest, // ✅ Validation after body is parsed
   MyRestaurantController.createMyRestaurant
 );
-// router.put(
-//   "/",
-//   upload.single("imageFile"),
-//   validateMyRestaurantRequest,
-//   jwtCheck,
-//   jwtParse,
-//   MyRestaurantController.updateMyRestaurant
-// );
+
+router.put(
+  "/",
+  upload.single("imageFile"),
+  jwtCheck,
+  jwtParse,
+  validateMyRestaurantRequest,
+  MyRestaurantController.updateMyRestaurant
+);
+
 
 export default router;
