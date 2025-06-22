@@ -14,6 +14,7 @@ export type MenuItem = {
   price: number;
 };
 export type Restaurant = {
+  id: Key | null | undefined;
   _id: string;
   restaurantName: string;
   Collegecity: string;
